@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}
+index
+{% endblock %}
+
+{% block main %}
+<!-- banner -->
+<section class="banner_main">
+   <div id="banner1" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+         <li data-target="#banner1" data-slide-to="0" class="active"></li>
+         <li data-target="#banner1" data-slide-to="1"></li>
+         <li data-target="#banner1" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+         <div class="carousel-item active">
+            <div class="container">
+               <div class="carousel-caption">
+                  <div class="text-bg">
+                     <figure><img src="{{ url_for('static', filename='images/fondo.jpeg') }}" alt="#" /></figure>
+                     <a class="read_more" href="{{ url_for('products') }}">Comprar</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="carousel-item">
+            <div class="container">
+               <div class="carousel-caption">
+                  <div class="text-bg">
+                     <figure><img src="{{ url_for('static', filename='images/elec.jpg') }}" alt="#" /></figure>
+                     <a class="read_more" href="{{ url_for('products_by_category', category_id=4) }}">Electricidad</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="carousel-item">
+            <div class="container">
+               <div class="carousel-caption">
+                  <div class="text-bg">
+                     <figure><img src="{{ url_for('static', filename='images/total.png') }}" alt="#" /></figure>
+                     <a class="read_more" href="{{ url_for('products_by_category', category_id=1) }}">Herramientas</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <a class="carousel-control-prev" href="#banner1" role="button" data-slide="prev">
+         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+         <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#banner1" role="button" data-slide="next">
+         <span class="carousel-control-next-icon" aria-hidden="true"></span>
+         <span class="sr-only">Next</span>
+      </a>
+   </div>
+</section>
+
+ <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+{% endblock %}

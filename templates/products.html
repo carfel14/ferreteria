@@ -1,0 +1,180 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Especificaciones del Producto
+{% endblock %}
+
+{% block main %}
+<style>
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 -10px;
+}
+
+.product-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 10px; /* Ajusta el valor según tu preferencia */
+  width: 100%;
+}
+
+.product-item {
+  width: calc(33.33% - 20px);
+  margin: 0 10px;
+  margin-bottom: 10px; /* Ajusta el valor según tu preferencia */
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-image img {
+  width: 100%;
+  height: auto;
+  max-height: 150px;
+  object-fit: contain;
+}
+
+.product-name {
+  font-weight: bold;
+}
+
+.product-price {
+  margin-top: auto;
+  margin-bottom: 10px;
+}
+
+.product-buttons {
+  margin-top: auto;
+}
+
+.btn-details-custom,
+.btn-add-to-cart-custom {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #3C3C3C;
+  color: #FFFFFF;
+  border: 0.5px solid #000000;
+  border-radius: 3px;
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn-details-custom:hover,
+.btn-add-to-cart-custom:hover {
+  background-color: #ECA72C;
+  border: 1px solid #000000;
+  color: #000000;
+}
+
+.btn-add-to-cart-custom:hover svg.hover_cart-custom path {
+    fill: #000000;
+  }
+
+.btn-details-custom:first-child,
+.btn-add-to-cart-custom:first-child {
+  margin-left: 0;
+}
+
+
+</style>
+
+<div class="container-spec">
+  <div class="titlees">
+    <h1>Especificaciones del Producto</h1>
+  </div>
+  <div class="product-specs">
+    <div class="row-1">
+      <div class="product-image-container">
+        <img id="productImg" src="{{ product[6] }}" alt="{{ product[1] }}">
+        <div class="zoom-image-container">
+          <img src="{{ product[6] }}" alt="{{ product[1] }}">
+        </div>
+      </div>
+    </div>
+    <div class="row-2">
+      <div class="product-description">
+        <h2>{{ product[1] }}</h2>
+        <p>Precio: {{ product[3] }}</p>
+        <div class="quantity-controls">
+          <button class="quantity-decrease">-</button>
+          <input type="number" class="quantity-input" value="1" min="1">
+          <button class="quantity-increase">+</button>
+        </div>
+        <button class="cart-button">
+          <svg class="hover_cartespec" xmlns="http://www.w3.org/2000/svg" height="1.3em" fill="white"
+            viewBox="0 0 576 512">
+            <path
+              d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+          </svg>
+          <span>Agregar al carrito</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="desc-title">
+    <h2>Descripción</h2>
+    <p>{{ product[4] }}</p>
+  </div>
+  <table class="espectable">
+    <div class="espectable-title">
+      <h2>Especificaciones Técnicas</h2>
+    </div>
+    <thead>
+      <tr>
+        <th>Especificación</th>
+        <th>Valor</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for specification in product_specifications %}
+      <tr>
+        <td>{{ specification.attribute }}</td>
+        <td>{{ specification.value }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+  <div class="related-products">
+    <h2>Productos relacionados</h2>
+    <div class="product-grid">
+      {% for i in range(0, related_products|length, 3) %}
+      <div class="product-row">
+        {% for product in related_products[i:i+3] %}
+        <div class="product-item">
+          <div class="product-image">
+            <img src="{{ product[6] }}" alt="{{ product[1] }}">
+          </div>
+          <div class="product-details">
+            <div class="product-name">{{ product[1] }}</div>
+            <div class="product-price">Precio: <span>NIO {{ product[3] }}</span></div>
+            <div class="product-buttons">
+              <a href="{{ url_for('product', product_id=product[0]) }}" class="btn-details-custom">Ver detalles</a>
+              <button class="btn-add-to-cart-custom">
+                <svg class="hover_cart-custom" xmlns="http://www.w3.org/2000/svg" height="1.3em" fill="white"
+                  viewBox="0 0 576 512">
+                  <path
+                    d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+                </svg>
+                <span>Agregar al carrito</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='js/scriptlupa.js') }}"></script>
+{% endblock %}

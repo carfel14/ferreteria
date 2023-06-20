@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Send</title>
+        <link rel="stylesheet" href="/static/styles_register.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    </head>
+
+    <body>
+
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="/">
+                        <img src="{{ url_for('static', filename='images/logo4.png') }}" alt="#" />
+                    </a>
+                </div>
+            </div>
+        </div>
+        <br>
+        <h1>Formulario de ingreso de productos</h1>
+        <div class="form-group">
+
+            <form action="/send" method="post">
+                <input id="url" name="url" hidden>
+                <label for="name">Nombre*:</label>
+                <input type="text" id="name" name="nombre" placeholder="Ingrese el nombre del producto">
+
+                <label for="precio">Precio* (Número con hasta dos decimales):</label>
+                <input type="number" id="price" name="price" step="0.01" min="0" autocomplete="off">
+
+                <label for="stock">Stock* (Número):</label>
+                <input type="number" id="stock" name="stock" min="1" autocomplete="off">
+
+                <br>
+
+                <label for="description">Descripción*:</label>
+                <textarea type="description" id="description" name="description"
+                    placeholder="Ingrese la descripción del producto"> </textarea>
+
+                <label for="category">Categoría</label>
+                <select name="category" id="category">
+                    <option value="1">Herramientas</option>
+                    <option value="2">Herraje</option>
+                    <option value="3">Plomería</option>
+                    <option value="4">Electricidad</option>
+                    <option value="5">Iluminación</option>
+                    <option value="6">Grifería</option>
+                    <option value="7">Pintura</option>
+                    <option value="8">Hogar</option>
+                </select>
+
+                <label for="img-uploader">Imagen</label>
+                <input name="imagen" type="file" class="form-control image-file" id="img-uploader">
+
+                <label>Especificaciones:</label>
+                <div id="specifications-container"></div>
+
+                <button type="button" onclick="addSpecification()">Agregar especificación</button>
+
+                <br><br>
+
+                <div class="buttons">
+                    <button type="submit" class="register-button">Registrar producto</button>
+                </div>
+            </form>
+
+
+        </div>
+
+
+        <script>
+            let specificationCount = 1;
+
+            function addSpecification() {
+                const container = document.getElementById('specifications-container');
+
+                const attributeInput = document.createElement('input');
+                attributeInput.type = 'text';
+                attributeInput.name = 'attribute' + specificationCount;
+                attributeInput.placeholder = 'Nombre de la especificación';
+
+                const valueInput = document.createElement('input');
+                valueInput.type = 'text';
+                valueInput.name = 'value' + specificationCount;
+                valueInput.placeholder = 'Valor de la especificación';
+
+                const specificationDiv = document.createElement('div');
+                specificationDiv.appendChild(attributeInput);
+                specificationDiv.appendChild(valueInput);
+
+                container.appendChild(specificationDiv);
+
+                specificationCount++;
+            }
+        </script>
+
+        <img src="" id="img-muestra">
+
+
+
+        <script>
+            const imgMuestra = document.getElementById('img-muestra');
+            const imageUploader = document.getElementById('img-uploader');
+
+            const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/drbc8csv2/image/upload`;
+            const CLOUDINARY_UPLOAD_PRESET = "cmukqekq";
+            const url = document.getElementById("url");
+
+
+            window.addEventListener('DOMContentLoaded', (event) => {
+                imageUploader.addEventListener('change', async (e) => {
+                    // console.log(e);
+                    const file = e.target.files[0];
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+                    // Send to cloudianry
+                    const res = await axios.post(
+                        CLOUDINARY_URL,
+                        formData,
+                        {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            },
+                        }
+                    )
+                        // .then((response) => {
+                        //         console.log(response.data)
+                        //     })
+                        ;
+                    console.log(res);
+                    url.value = res.data.url;
+                    $("#img-muestra").attr("src", url.value);
+                });
+            });
+
+
+        </script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+    </body>
+    <footer>
+        <p>© 2023 Todos los derechos reservados</p>
+    </footer>
+
+</html>
