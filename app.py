@@ -4,8 +4,19 @@ from cs50 import SQL
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology, login_required
 import sqlite3
+from flask_mail import Mail, Message
 
 app = Flask(__name__)
+
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'elasesornic@gmail.com'
+app.config['MAIL_PASSWORD'] = 'rkhhzmwdrqzsjyvu'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
+
+
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 app.secret_key = 'clave_secreta'
@@ -51,18 +62,25 @@ def register():
     if request.method == "POST":
         name = request.form.get("nombre")
         last_name = request.form.get("apellido")
-        mail = request.form.get("correo")
+        email = request.form.get("correo")
         password = request.form.get("password")
         confirm = request.form.get("confirmation")
 
-        if not name or not last_name or not mail or not password or not confirm:
+        if not name or not last_name or not email or not password or not confirm:
             return render_template("register.html", error="Debe proporcionar todos los campos")
         elif password != confirm:
             return render_template("register.html", error="Las contraseñas no coinciden")
         else:
+
+            msg = Message("Message from your site",sender='elasesornic@gmail.com', recipients=[email])
+            msg.body = "se pudp"
+            msg.html = render_template('email.html', name=name, email=email)
+            mail.send(msg)
+            
+            
             db.execute("""INSERT INTO users (name, last_name, mail, hash, money) VALUES (?, ?, ?, ?, ?)""",
-                       name, last_name, mail, generate_password_hash(password), 15000)
-            rows = db.execute("SELECT id FROM users WHERE mail = ?", mail)
+                       name, last_name, email, generate_password_hash(password), 15000)
+            rows = db.execute("SELECT id FROM users WHERE mail = ?", email)
             session["user_id"] = rows[0]["id"]
             return redirect("/")
     else:
