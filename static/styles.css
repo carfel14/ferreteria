@@ -1562,4 +1562,159 @@ input[type="number"]::-webkit-outer-spin-button {
     font-weight: bold;
   }
 
-  /*productos relacionados*/
+  /*confirmar compra*/
+  .confirmar-compra {
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+  }
+  
+  .tabla-productos .cantidad-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    width: 50px; /* Ajusta el valor según tus preferencias */
+  }
+  
+  .tabla-productos .btn-cantidad {
+    min-width: 32px; /* Establece el ancho mínimo deseado para los botones de cantidad */
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+    border: none;
+    background-color: #3C3C3C;
+    color: #fff;
+    cursor: pointer;
+    outline: none;
+  }
+  .tabla-productos .btn-cantidad:hover{
+    background-color: #ECA72C;
+    color: #000000;
+  }
+
+  
+  .tabla-productos {
+    text-align: center;
+  }
+  
+  .tabla-productos h2.titulo {
+    margin: 0 auto;
+    
+  }
+  
+  .tabla-productos {
+    width: 70%;
+    margin-right: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    background: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.07) 4px 4px 20px;
+    border-radius: 8px;
+    padding: 8px;
+    max-width: 100%;
+  }
+  
+  .tabla-productos table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Establece el diseño de la tabla como fijo */
+  }
+  
+  .tabla-productos th,
+  .tabla-productos td {
+    padding: 10px;
+    text-align: left;
+    overflow: hidden; /* Oculta el contenido que desborda los límites de la celda */
+    text-overflow: ellipsis; /* Agrega puntos suspensivos (...) al contenido oculto */
+  }
+  
+  .tabla-productos th:nth-child(1),
+  .tabla-productos td:nth-child(1) {
+    width: 150px; /* Ancho de la columna de la imagen */
+  }
+  
+  .tabla-productos th:nth-child(2),
+  .tabla-productos td:nth-child(2) {
+    width: 210px; /* Ancho de la columna del nombre */
+  }
+  
+  .tabla-productos th:nth-child(3),
+  .tabla-productos td:nth-child(3) {
+    width: 100px; /* Ancho de la columna de cantidad */
+  }
+  
+  .tabla-productos th:nth-child(4),
+  .tabla-productos td:nth-child(4) {
+    width: 100px; /* Ancho de la columna de precio */
+  }
+  
+  .tabla-productos tbody tr {
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .tabla-productos img {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .tabla-productos .nombre-column {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  
+  .resumen-compra {
+    width: 30%;
+  }
+  
+  .resumen-compra .contenido {
+    background-color: #f2f2f2;
+    padding: 20px;
+    text-align: center;
+    margin: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .resumen-compra .titulo {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .precio-total {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .btn-continuar {
+    background-color: #D3242B;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .btn-continuar:hover {
+    background-color: #45a049;
+  }
+  
+  .input-cantidad {
+    width: 40px;
+    padding: 5px;
+    border: none;
+    text-align: center;
+    border-radius: 4px;
+    background-color: #f2f2f2;
+  }
+  .tabla-productos tbody {
+    margin-top: 0;
+  }
+  
+  .tabla-productos tbody tr:first-child {
+    border-top: 1px solid #ccc;
+  }
+  
+/*fin de confirmar*/  
